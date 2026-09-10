@@ -1,0 +1,3 @@
+import type { Metadata } from "next"; import { Subpage } from "@/components/subpage";
+export const metadata:Metadata={title:"Terms | Green Road",description:"General website terms for Green Road Private Legacy Films."};
+export default function Page(){return <Subpage eyebrow="TERMS" title={<>CLEAR TERMS.<br/><em>CAREFUL WORK.</em></>} intro="Every commission is governed by its own written agreement."><h2>WEBSITE INFORMATION</h2><p>This website describes Green Road's approach in general terms. Project scope, schedule, investment, permissions, rights, archive handling, review, delivery, and travel are defined in the written agreement for each commission.</p></Subpage>}

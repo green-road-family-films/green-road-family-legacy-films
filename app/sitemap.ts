@@ -1,0 +1,2 @@
+import type { MetadataRoute } from "next";
+export default function sitemap():MetadataRoute.Sitemap{const base=process.env.NEXT_PUBLIC_SITE_URL||"https://green-road-family-legacy-films.vercel.app";return ["","/stories","/experience","/films","/about","/faq","/inquire","/privacy","/terms"].map(path=>({url:`${base}${path}`,lastModified:new Date(),changeFrequency:path?"monthly":"weekly",priority:path?0.7:1}))}
