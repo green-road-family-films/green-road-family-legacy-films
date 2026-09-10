@@ -1,6 +1,6 @@
 # Green Road Family Legacy Films
 
-A cinematic, responsive website for a filmmaker-led boutique private documentary studio. The current implementation follows the Green Road Website Revision & Implementation Brief V3.
+A cinematic, responsive website prototype created from the 2026–2027 website architecture and content specification.
 
 ## Technology
 
@@ -10,7 +10,7 @@ A cinematic, responsive website for a filmmaker-led boutique private documentary
 - Purpose-built CSS motion and responsive layout
 - Local PP Neue Montreal and Grand Bold font assets supplied in the reference archive
 
-The site includes dedicated Stories, Experience, Films, About, FAQ, Inquire, Privacy, Terms, and Thank You routes; responsive navigation; SEO metadata; sitemap and robots endpoints; reduced-motion handling; and a server-side inquiry endpoint.
+This stack provides a high-end interactive front end without a heavy animation dependency. It is component-friendly, SEO-ready, accessible, fast to iterate in IntelliJ IDEA, and can later connect to a CMS, CRM, email service, Google Places API, or private video host.
 
 ## Run in IntelliJ IDEA
 
@@ -32,23 +32,13 @@ Production check:
 npm run build
 ```
 
-## Inquiry delivery
+## Content to replace before launch
 
-Configure these environment variables in Vercel before accepting inquiries:
+- Hero and film placeholder panels with permission-cleared family imagery/video
+- `hello@greenroadfilms.com`, phone number, and San Francisco address with the client's confirmed contact details
+- Google Business Profile URL or Place ID for the live rating and review count
+- Form success demo with a real email/CRM endpoint
+- Founder biography, portrait, awards, and approved portfolio films
+- Privacy, legal, and terms pages
 
-- `RESEND_API_KEY`
-- `INQUIRY_EMAIL_TO`
-- `INQUIRY_EMAIL_FROM`
-- `NEXT_PUBLIC_SITE_URL`
-
-The form validates required fields server-side and includes a honeypot spam check. It redirects to the minimal Thank You page only after successful delivery.
-
-## Approved material still required
-
-- Authentic Hero video and a separate 60-second emotional brand film, with poster frames and captions
-- A real portrait of Mehdi Rahmani
-- Verified biography, selected film credits, festival history, and recognition
-- Approved Green Road or archival imagery where permission exists
-- Confirmed geographic positioning and active social links, if any
-
-No stock photography, fabricated client work, ratings, testimonials, packages, rigid durations, camera specifications, or placeholder contact details are published.
+No public pricing is included by design. Story Territories and Production Levels remain intentionally separate, matching the business specification.

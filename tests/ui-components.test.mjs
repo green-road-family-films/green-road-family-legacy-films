@@ -35,15 +35,17 @@ async function readCssTree(directory) {
   return contents.join("\n");
 }
 
-test("emits the site's editorial theme and motion safeguards", async () => {
-  const css = await readFile(path.join(root, "app/globals.css"), "utf8");
+test("emits the catalog's animation and scrolling utilities", async () => {
+  const css = await readCssTree(path.join(root, "dist"));
 
-  assert.match(css, /--black:#090a09/);
-  assert.match(css, /--ivory:#eee9df/);
-  assert.match(css, /--champagne:#b8a37e/);
-  assert.match(css, /scroll-snap-type:x mandatory/);
-  assert.match(css, /prefers-reduced-motion:reduce/);
-  assert.match(css, /@media\(max-width:560px\)/);
+  assert.match(css, /--tw-enter-opacity/);
+  assert.match(css, /scrollbar-width:\s*thin/);
+  assert.match(css, /scrollbar-width:\s*none/);
+  assert.match(css, /scrollbar-gutter:\s*stable/);
+  assert.match(css, /scroll-fade-reveal-b/);
+  assert.match(css, /mask-image:/);
+  assert.match(css, /tw-shimmer/);
+  assert.match(css, /prefers-reduced-motion:\s*reduce/);
 });
 
 test("forwards progress semantics to the primitive", async () => {

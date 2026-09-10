@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://green-road-family-legacy-films.vercel.app"),
-  title: "Green Road | Private Legacy Films",
+  title: "Green Road Family Legacy Films | Stories for Generations",
   description:
-    "A filmmaker-led private documentary studio creating commissioned films for families and storytellers.",
+    "Private, cinematic family legacy documentaries preserving lives, journeys, values, and memories across generations.",
   other: {
     "codex-preview": "development",
   },
@@ -13,7 +12,6 @@ export const metadata: Metadata = {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
   },
-  openGraph: { title: "Green Road | Private Legacy Films", description: "Your Story. Their Legacy. A Film for Generations.", type: "website" },
 };
 
 export default function RootLayout({
