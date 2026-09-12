@@ -1,5 +1,5 @@
 "use client";
-import { FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 
 const stories = ["A Life", "A Family", "A Journey", "A Legacy"];
 const films = ["The Portrait", "The Legacy", "The Heirloom"];
@@ -31,8 +31,12 @@ function ArchitectureSection({id,title,dark=false}:{id?:string;title:string;dark
 
 export default function Home(){
  const [menu,setMenu]=useState(false),[open,setOpen]=useState<number|null>(0),[sent,setSent]=useState(false),[progress,setProgress]=useState(0);
+ const [experienceScroll,setExperienceScroll]=useState(0);
+ const experienceTrack=useRef<HTMLDivElement>(null);
  useEffect(()=>{const update=()=>setProgress(window.scrollY/Math.max(1,document.documentElement.scrollHeight-window.innerHeight)*100);update();addEventListener("scroll",update,{passive:true});return()=>removeEventListener("scroll",update)},[]);
  const move=(event:React.MouseEvent<HTMLElement>)=>{event.currentTarget.style.setProperty("--x",event.clientX+"px");event.currentTarget.style.setProperty("--y",event.clientY+"px")};
+ const syncExperienceScroll=()=>{const track=experienceTrack.current;if(track)setExperienceScroll(track.scrollLeft/Math.max(1,track.scrollWidth-track.clientWidth)*100)};
+ const scrollExperience=(event:ChangeEvent<HTMLInputElement>)=>{const track=experienceTrack.current;if(!track)return;const value=Number(event.target.value);track.scrollLeft=value/100*(track.scrollWidth-track.clientWidth);setExperienceScroll(value)};
  const submit=(event:FormEvent)=>{event.preventDefault();setSent(true)};
  return <main onMouseMove={move}>
   <div className="scroll-progress" style={{width:`${progress}%`}}/>
@@ -55,7 +59,7 @@ export default function Home(){
 
   <ArchitectureSection title="BEFORE WE FILM"/>
 
-  <section id="experience" className="process section-pad"><div className="section-head"><div><h2>A story-first<br/><em>approach.</em></h2></div></div><div className="process-track">{experience.map((stage,index)=><article className="process-step" key={stage}><div className="process-image"><img src={experienceImages[index][0]} alt={experienceImages[index][1]}/><span>{String(index+1).padStart(2,"0")}</span></div><div className="process-copy"><h3>{stage}</h3></div></article>)}</div></section>
+  <section id="experience" className="process section-pad"><div className="section-head"><div><h2>A story-first<br/><em>approach.</em></h2></div></div><div className="process-track" ref={experienceTrack} onScroll={syncExperienceScroll}>{experience.map((stage,index)=><article className="process-step" key={stage}><div className="process-image"><img src={experienceImages[index][0]} alt={experienceImages[index][1]}/><span>{String(index+1).padStart(2,"0")}</span></div><div className="process-copy"><h3>{stage}</h3></div></article>)}</div><input className="process-scrollbar" type="range" min="0" max="100" value={experienceScroll} onChange={scrollExperience} aria-label="Scroll through the five Experience stages"/></section>
 
   <section id="films" className="films section-pad"><div className="section-head compact"><div><h2>Three forms for<br/><em>three kinds of story.</em></h2></div></div><div className="film-types">{films.map((film,index)=><article key={film}><span>0{index+1}</span><h3>{film}</h3></article>)}</div></section>
 
