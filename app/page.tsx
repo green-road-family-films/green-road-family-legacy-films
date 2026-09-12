@@ -32,8 +32,9 @@ function ArchitectureSection({id,title,dark=false}:{id?:string;title:string;dark
 export default function Home(){
  const [menu,setMenu]=useState(false),[open,setOpen]=useState<number|null>(0),[sent,setSent]=useState(false),[progress,setProgress]=useState(0);
  useEffect(()=>{const update=()=>setProgress(window.scrollY/Math.max(1,document.documentElement.scrollHeight-window.innerHeight)*100);update();addEventListener("scroll",update,{passive:true});return()=>removeEventListener("scroll",update)},[]);
+ const move=(event:React.MouseEvent<HTMLElement>)=>{event.currentTarget.style.setProperty("--x",event.clientX+"px");event.currentTarget.style.setProperty("--y",event.clientY+"px")};
  const submit=(event:FormEvent)=>{event.preventDefault();setSent(true)};
- return <main>
+ return <main onMouseMove={move}>
   <div className="scroll-progress" style={{width:`${progress}%`}}/>
   <header className="topbar"><a className="brand" href="#top"><span>GREEN ROAD</span><small>FAMILY LEGACY FILMS</small></a><nav className={menu?"nav open":"nav"}><a href="#stories">Stories</a><a href="#films">The Films</a><a href="#experience">The Experience</a><a href="#about">About</a><a href="#faq">FAQ</a></nav><a className="nav-cta" href="#inquire">Inquire <Arrow/></a><button className="menu-button" onClick={()=>setMenu(!menu)} aria-expanded={menu}>{menu?"Close":"Menu"}</button></header>
 
