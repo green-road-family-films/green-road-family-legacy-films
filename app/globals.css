@@ -35,6 +35,7 @@ footer{background:#050d13;border-top:1px solid var(--line);padding:70px 5vw 35px
 .architecture-section>h2:first-child{grid-column:1/-1}
 .footer-meta{display:grid;grid-template-columns:1fr 1fr;gap:16px 48px;line-height:1.5}
 .footer-meta span:nth-child(even){text-align:right}
+.footer-links{flex-direction:column;flex-wrap:nowrap}
 @media(max-width:560px){.footer-meta{grid-template-columns:1fr}.footer-meta span:nth-child(even){text-align:left}}
 
 /* Structure pass: editorial placeholders keep the architecture visible without
