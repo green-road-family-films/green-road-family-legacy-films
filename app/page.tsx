@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 
 const stories = ["A Life", "A Family", "A Journey", "A Legacy"];
 const films = ["The Portrait", "The Legacy", "The Heirloom"];
@@ -30,14 +30,13 @@ function ArchitectureSection({id,title,dark=false}:{id?:string;title:string;dark
 }
 
 export default function Home(){
- const [menu,setMenu]=useState(false),[open,setOpen]=useState<number|null>(0),[sent,setSent]=useState(false),[progress,setProgress]=useState(0);
+ const [menu,setMenu]=useState(false),[open,setOpen]=useState<number|null>(0),[progress,setProgress]=useState(0);
  const [experienceScroll,setExperienceScroll]=useState(0);
  const experienceTrack=useRef<HTMLDivElement>(null);
  useEffect(()=>{const update=()=>setProgress(window.scrollY/Math.max(1,document.documentElement.scrollHeight-window.innerHeight)*100);update();addEventListener("scroll",update,{passive:true});return()=>removeEventListener("scroll",update)},[]);
  const move=(event:React.MouseEvent<HTMLElement>)=>{event.currentTarget.style.setProperty("--x",event.clientX+"px");event.currentTarget.style.setProperty("--y",event.clientY+"px")};
  const syncExperienceScroll=()=>{const track=experienceTrack.current;if(track)setExperienceScroll(track.scrollLeft/Math.max(1,track.scrollWidth-track.clientWidth)*100)};
  const scrollExperience=(event:ChangeEvent<HTMLInputElement>)=>{const track=experienceTrack.current;if(!track)return;const value=Number(event.target.value);track.scrollLeft=value/100*(track.scrollWidth-track.clientWidth);setExperienceScroll(value)};
- const submit=(event:FormEvent)=>{event.preventDefault();setSent(true)};
  return <main onMouseMove={move}>
   <div className="scroll-progress" style={{width:`${progress}%`}}/>
   <header className="topbar"><a className="brand" href="#top"><span>GREEN ROAD</span><small>FAMILY LEGACY FILMS</small></a><nav className={menu?"nav open":"nav"}><a href="#stories">Stories</a><a href="#films">The Films</a><a href="#experience">The Experience</a><a href="#about">About</a><a href="#faq">FAQ</a></nav><a className="nav-cta" href="#inquire">Inquire <Arrow/></a><button className="menu-button" onClick={()=>setMenu(!menu)} aria-expanded={menu}>{menu?"Close":"Menu"}</button></header>
@@ -74,7 +73,7 @@ export default function Home(){
 
   <section className="final-cta section-pad"><h2>FINAL<br/><em>STATEMENT</em></h2><a className="button light" href="#inquire">BEGIN A PRIVATE CONVERSATION <Arrow/></a></section>
 
-  <section id="inquire" className="contact section-pad"><div className="contact-intro"><p className="kicker gold">Begin a private conversation</p><h2>Every legacy begins<br/>with a <em>conversation.</em></h2><div className="contact-details"><a href="mailto:hello@greenroadfilms.com">hello@greenroadfilms.com</a><a href="tel:+14158161060">+1 415 816 1060</a><span>San Francisco Bay Area, California</span></div></div>{sent?<div className="thanks"><span>✦</span><h3>Thank you for trusting us with the beginning.</h3><p>Your inquiry has been prepared. Connect this form to your email or CRM before launch to receive submissions.</p><button onClick={()=>setSent(false)}>Send another story</button></div>:<form onSubmit={submit}><label>Your name<input required autoComplete="name"/></label><label>Email address<input required type="email" autoComplete="email"/></label><label>Phone <span>optional</span><input type="tel" autoComplete="tel"/></label><label>What would you like to preserve?<select required defaultValue=""><option value="" disabled>Select a story territory</option>{stories.map(story=><option key={story}>{story}</option>)}<option>I’m not sure yet</option></select></label><label className="wide">Tell us a little about the story<textarea required rows={4} placeholder="Who or what is the story about? Why does preserving it matter now?"/></label><label>Where is the story located?<input/></label><label>Do you have family archives?<select defaultValue="Not sure"><option>Yes</option><option>No</option><option>Not sure</option></select></label><button className="submit" type="submit">BEGIN A PRIVATE CONVERSATION <Arrow/></button></form>}</section>
+  <section id="inquire" className="contact section-pad"><div className="contact-intro"><p className="kicker gold">Begin a private conversation</p><h2>Every legacy begins<br/>with a <em>conversation.</em></h2><div className="contact-details"><a href="mailto:hello@greenroadfilms.com">hello@greenroadfilms.com</a><a href="tel:+14158161060">+1 415 816 1060</a><span>San Francisco Bay Area, California</span></div></div></section>
 
   <footer><div className="footer-brand"><span>GREEN ROAD</span><small>FAMILY LEGACY FILMS</small></div><p>Your Story. Their Legacy.<br/>A Film for Generations.</p><div className="footer-links"><a href="#stories">Stories</a><a href="#films">The Films</a><a href="#experience">The Experience</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#inquire">Inquire</a></div></footer>
  </main>
