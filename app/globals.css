@@ -30,6 +30,13 @@ footer{background:#050d13;border-top:1px solid var(--line);padding:70px 5vw 35px
 .film-visual:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,#07121bcc,transparent 55%)}
 .film-visual:after,.film-visual>span,.film-visual>small,.portrait-mark{z-index:2}
 
+/* Layout adjustments required by the requested copy removals. */
+.manifesto{grid-template-columns:1fr}.manifesto>div{max-width:1100px}
+.architecture-section>h2:first-child{grid-column:1/-1}
+.footer-meta{display:grid;grid-template-columns:1fr 1fr;gap:16px 48px;line-height:1.5}
+.footer-meta span:nth-child(even){text-align:right}
+@media(max-width:560px){.footer-meta{grid-template-columns:1fr}.footer-meta span:nth-child(even){text-align:left}}
+
 /* Structure pass: editorial placeholders keep the architecture visible without
    inventing copy that belongs to the next content pass. */
 .architecture-section{min-height:54vh;display:grid;grid-template-columns:minmax(120px,.7fr) 3fr;grid-template-rows:auto 1fr;gap:34px 7vw;align-items:end;background:var(--mist);color:var(--ink);border-top:1px solid #c2cbcd}
