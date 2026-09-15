@@ -26,11 +26,22 @@ function splitGroups(lines:string[],titles:string[]){
  const indexes=titles.map(title=>lines.indexOf(title));
  return titles.map((title,index)=>({title,lines:lines.slice(indexes[index]+1,index+1<titles.length?indexes[index+1]:lines.length)}));
 }
+function readingGroups(lines:string[],size:number){
+ const items=paragraphs(lines),groups:string[][]=[];
+ for(let index=0;index<items.length;index+=size)groups.push(items.slice(index,index+size));
+ return groups;
+}
+function ReadingDeck({lines,size=7,className=""}:{lines:string[];size?:number;className?:string}){
+ return <div className={`reading-deck ${className}`}>{readingGroups(lines,size).map((group,index)=><article className="reading-card" key={index}>{group.map((text,item)=><p key={item}>{text}</p>)}</article>)}</div>;
+}
 
 const who=section("WHO IS THIS FOR?");
 const storyTitles=["A LIFE","A FAMILY","A JOURNEY","A LEGACY"];
 const storyGroups=splitGroups(who.lines,storyTitles);
 const whoIntro=who.lines.slice(0,who.lines.indexOf("WHAT KIND OF STORY?")+1);
+const whoLeave=whoIntro.indexOf("THE STORY YOU LEAVE");
+const whoKeep=whoIntro.indexOf("THE STORY YOU WANT TO KEEP");
+const whoKind=whoIntro.indexOf("WHAT KIND OF STORY?");
 
 const form=section("FOUR FORMS FOR FOUR KINDS OF STORY");
 const filmTitles=["THE PORTRAIT","THE LOVE STORY","THE LEGACY","THE HEIRLOOM"];
@@ -78,20 +89,20 @@ export default function Home(){
 
   <section className="content-section section-pad architecture-dark"><div className="editorial-heading"><h2>{intro.lines[0]}<br/><em>{intro.lines[1]}</em></h2></div><div className="editorial-copy"><Copy lines={intro.lines.slice(2)}/></div></section>
 
-  <section className="content-section section-pad"><div className="editorial-heading"><h2>{section("WHAT IS A PRIVATE LEGACY FILM?").title}</h2></div><div className="editorial-copy"><Copy lines={section("WHAT IS A PRIVATE LEGACY FILM?").lines}/></div></section>
+  <section className="content-section long-read section-pad"><div className="editorial-heading"><h2>{section("WHAT IS A PRIVATE LEGACY FILM?").title}</h2></div><ReadingDeck lines={section("WHAT IS A PRIVATE LEGACY FILM?").lines} size={8}/></section>
 
-  <section className="content-section section-pad architecture-dark"><div className="editorial-heading"><h2>{who.title}</h2></div><div className="editorial-copy"><Copy lines={whoIntro} headings={["THE STORY YOU LEAVE","THE STORY YOU WANT TO KEEP","WHAT KIND OF STORY?"]}/></div></section>
+  <section className="content-section long-read section-pad architecture-dark"><div className="editorial-heading"><h2>{who.title}</h2></div><div className="reading-deck titled-deck"><article className="reading-card"><Copy lines={whoIntro.slice(0,whoLeave)}/></article><article className="reading-card"><h3>{whoIntro[whoLeave]}</h3><Copy lines={whoIntro.slice(whoLeave+1,whoKeep)}/></article><article className="reading-card"><h3>{whoIntro[whoKeep]}</h3><Copy lines={whoIntro.slice(whoKeep+1,whoKind)}/></article></div><h3 className="territory-heading">{whoIntro[whoKind]}</h3></section>
   <section id="stories" className="stories section-pad"><div className="story-territories">{storyGroups.map(story=><article key={story.title}><h3>{story.title}</h3><Copy lines={story.lines}/></article>)}</div></section>
 
   <section className="cinema-break"><img src="https://images.pexels.com/photos/7545406/pexels-photo-7545406.jpeg?auto=compress&cs=tinysrgb&w=2000" alt="A collection of old family photographs being carefully reviewed"/><div className="frame-center">{archive.title}<br/><span>{archive.lines[0]}</span></div></section>
-  <section className="content-section section-pad architecture-dark"><div className="editorial-copy editorial-wide"><Copy lines={archive.lines.slice(1)}/></div></section>
+  <section className="content-section long-read archive-read section-pad architecture-dark"><ReadingDeck lines={archive.lines.slice(1)} size={8}/></section>
 
-  <section className="not-video section-pad"><h2>{distinction.title.replace("EVENT VIDEOGRAPHY","")}<br/><span>event videography.</span></h2><div className="editorial-copy editorial-wide"><h3>{distinction.lines[0]}</h3><Copy lines={distinction.lines.slice(1)}/></div></section>
+  <section className="not-video section-pad"><h2>{distinction.title.replace("EVENT VIDEOGRAPHY","")}<br/><span>event videography.</span></h2><h3 className="distinction-heading">{distinction.lines[0]}</h3><ReadingDeck lines={distinction.lines.slice(1)} size={8} className="dark-deck"/></section>
 
   <section className="content-section section-pad"><div className="editorial-heading"><h2>{before.title}</h2><h3>{before.lines[0]}</h3></div><div className="editorial-copy"><Copy lines={before.lines.slice(1)}/></div></section>
-  <section id="experience" className="process section-pad"><div className="process-track" ref={experienceTrack} onScroll={syncExperienceScroll}>{stages.map((stage,index)=><article className="process-step" key={stage.title}><div className="process-image"><img src={stageImages[index][0]} alt={stageImages[index][1]}/><span>{String(index+1).padStart(2,"0")}</span></div><div className="process-copy"><h3>{stage.title}</h3><Copy lines={stage.lines}/></div></article>)}</div><input className="process-scrollbar" type="range" min="0" max="100" value={experienceScroll} onChange={scrollExperience} aria-label="Scroll through the five Experience stages"/></section>
+  <section id="experience" className="process section-pad"><div className="process-track" ref={experienceTrack} onScroll={syncExperienceScroll}>{stages.map((stage,index)=><article className="process-step" key={stage.title}><div className="process-image"><img src={stageImages[index][0]} alt={stageImages[index][1]}/><span>{String(index+1).padStart(2,"0")}</span></div><div className="process-copy"><h3>{stage.title}</h3><div className="process-reading"><Copy lines={stage.lines}/></div></div></article>)}</div><input className="process-scrollbar" type="range" min="0" max="100" value={experienceScroll} onChange={scrollExperience} aria-label="Scroll through the five Experience stages"/></section>
 
-  <section id="films" className="films section-pad"><div className="section-head compact"><div><h2>{form.title}</h2></div></div><div className="editorial-copy editorial-wide"><Copy lines={form.lines.slice(0,filmStart)}/></div><div className="film-types">{filmGroups.map(film=><article key={film.title}><h3>{film.title}</h3><Copy lines={film.lines}/></article>)}</div><div className="editorial-copy editorial-wide film-purpose"><Copy lines={form.lines.slice(purposeStart)} headings={["FOUR FORMS.","ONE PURPOSE."]}/></div></section>
+  <section id="films" className="films section-pad"><div className="section-head compact"><div><h2>{form.title}</h2></div></div><ReadingDeck lines={form.lines.slice(0,filmStart)} size={4} className="film-intro-deck"/><div className="film-types">{filmGroups.map(film=><article key={film.title}><h3>{film.title}</h3><h4>{film.lines[0]}</h4><div className="film-reading"><Copy lines={film.lines.slice(1)}/></div></article>)}</div><div className="film-purpose"><div className="purpose-title"><h3>{form.lines[purposeStart]}</h3><h3>{form.lines[purposeStart+1]}</h3></div><ReadingDeck lines={form.lines.slice(purposeStart+2)} size={7}/></div></section>
 
   <Editorial sectionTitle="A FILM HAS A POINT OF VIEW" dark headings={["A LIFE IS NOT A TIMELINE.","THE FILMMAKER'S ROLE","NOT EVERYTHING NEEDS TO BE INCLUDED.","YOUR FAMILY'S FILM"]}/>
   <Editorial sectionTitle="BEYOND THE FILM" headings={["WHAT HAPPENS TO A STORY AFTER IT IS TOLD?","MORE THAN AN ARCHIVE","A FILM WITH A FUTURE","THE FAMILY KEEPS CHANGING","MADE TO BE KEPT","SOMEDAY"]}/>
