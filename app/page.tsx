@@ -103,7 +103,7 @@ export default function Home(){
 
   <Editorial sectionTitle="A FILM HAS A POINT OF VIEW" dark headings={["A LIFE IS NOT A TIMELINE.","THE FILMMAKER'S ROLE","NOT EVERYTHING NEEDS TO BE INCLUDED.","YOUR FAMILY'S FILM"]}/>
   <Editorial sectionTitle="BEYOND THE FILM" headings={["WHAT HAPPENS TO A STORY AFTER IT IS TOLD?","MORE THAN AN ARCHIVE","A FILM WITH A FUTURE","THE FAMILY KEEPS CHANGING","MADE TO BE KEPT","SOMEDAY"]}/>
-  <Editorial id="about" sectionTitle="ABOUT / THE FILMMAKER" dark headings={["THE FILMMAKER"]}/>
+  <FilmmakerSection/>
 
   <section className="privacy"><div><h2>{section("PRIVACY").lines[0]}</h2></div><div className="editorial-copy"><Copy lines={section("PRIVACY").lines.slice(1)} headings={["PRIVATE BY DESIGN","CONTROLLED REVIEW","ARCHIVAL CARE"]}/></div></section>
 
@@ -121,4 +121,9 @@ function Editorial({sectionTitle,headings,dark=false,id}:{sectionTitle:string;he
  const item=section(sectionTitle);
  const chapters=splitGroups(item.lines,headings);
  return <section id={id} className={`chapter-section section-pad${dark?" architecture-dark":""}`}><div className="chapter-intro"><h2>{item.title}</h2></div><div className="chapter-list">{chapters.map((chapter,index)=><details key={chapter.title} open={index===0&&headings.length>1}><summary><span>{chapter.title}</span><i aria-hidden>+</i></summary><div className="chapter-copy"><Copy lines={chapter.lines}/></div></details>)}</div></section>
+}
+
+function FilmmakerSection(){
+ const item=section("ABOUT / THE FILMMAKER");
+ return <section id="about" className="filmmaker-section section-pad"><div className="filmmaker-heading"><h2>{item.title}</h2><h3>{item.lines[0]}</h3></div><div className="filmmaker-copy"><Copy lines={item.lines.slice(1)}/></div></section>
 }

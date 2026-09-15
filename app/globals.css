@@ -182,6 +182,16 @@ footer{background:#050d13;border-top:1px solid var(--line);padding:70px 5vw 35px
 .architecture-dark .chapter-copy p{color:#aeb9bb}
 #about .chapter-copy{columns:3}
 
+.filmmaker-section{position:relative;background:var(--carbon);color:var(--mist);overflow:hidden}
+.filmmaker-section:before{content:"";position:absolute;width:520px;height:520px;right:-170px;top:-180px;border:1px solid rgba(189,155,100,.2);border-radius:50%}
+.filmmaker-heading{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(180px,.7fr);gap:6vw;align-items:end;padding-bottom:48px;border-bottom:1px solid var(--line)}
+.filmmaker-heading h2{max-width:900px;margin:0;font-family:var(--serif);font-size:clamp(52px,7vw,112px);font-weight:400;line-height:.88;letter-spacing:-.055em;text-transform:uppercase}
+.filmmaker-heading h3{margin:0;color:var(--gold);font-family:Neue,Arial,sans-serif;font-size:11px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;text-align:right}
+.filmmaker-copy{position:relative;z-index:1;columns:3;column-gap:52px;column-rule:1px solid var(--line);padding-top:58px}
+.filmmaker-copy p{break-inside:avoid;font-family:var(--serif);font-size:clamp(14px,1vw,16px);line-height:1.62;color:#aeb9bb;margin:0 0 15px}
+.filmmaker-copy p:first-child{font-size:clamp(24px,2vw,34px);line-height:1.2;color:var(--mist)}
+.filmmaker-copy p:last-child{color:var(--gold)}
+
 @media(max-width:900px){
  .titled-deck,.territory-heading{grid-column:1}
  .reading-deck,.archive-read .reading-deck,.dark-deck{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -199,6 +209,9 @@ footer{background:#050d13;border-top:1px solid var(--line);padding:70px 5vw 35px
  .chapter-section{grid-template-columns:1fr}
  .chapter-intro{position:static}
  #about .chapter-copy{columns:2}
+ .filmmaker-heading{grid-template-columns:1fr}
+ .filmmaker-heading h3{text-align:left}
+ .filmmaker-copy{columns:2}
 }
 @media(max-width:560px){
  .reading-deck,.archive-read .reading-deck,.dark-deck,.story-territories{grid-template-columns:1fr}
@@ -208,6 +221,7 @@ footer{background:#050d13;border-top:1px solid var(--line);padding:70px 5vw 35px
  .experience-image{min-height:300px}
  .chapter-copy,#about .chapter-copy{columns:1}
  .chapter-list summary{padding:22px 2px}
+ .filmmaker-copy{columns:1;padding-top:38px}
 }
 @media(max-width:900px){.architecture-section{grid-template-columns:1fr;min-height:44vh}.architecture-rule{grid-column:1}.story-territories{grid-template-columns:1fr 1fr}.story-territories article:nth-child(2){border-right:0}.story-territories article:nth-child(-n+2){border-bottom:1px solid var(--line)}.film-types{grid-template-columns:1fr}.film-types article{min-height:260px;border-right:0;border-bottom:1px solid #9dacaf}.film-types article:last-child{border-bottom:0}.final-cta{min-height:62vh}}
 @media(max-width:560px){.architecture-section h2{font-size:46px}.story-territories{grid-template-columns:1fr}.story-territories article{min-height:250px;border-right:0;border-bottom:1px solid var(--line)}.story-territories article:nth-child(3){border-bottom:1px solid var(--line)}.story-territories article:last-child{border-bottom:0}.final-cta h2{font-size:68px}}
