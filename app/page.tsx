@@ -78,6 +78,14 @@ export default function Home(){
  const distinction=section("THIS IS NOT EVENT VIDEOGRAPHY");
  const before=section("BEFORE WE FILM");
  const final=section("FINAL CTA");
+ const privacyContent=section("PRIVACY");
+ const privacyHeadings=["PRIVATE BY DESIGN","CONTROLLED REVIEW","ARCHIVAL CARE"];
+ const privacyClosing=privacyContent.lines.indexOf("Because some stories are meant to be seen by everyone.");
+ const privacyGroups=privacyHeadings.map((title,index)=>{
+  const start=privacyContent.lines.indexOf(title)+1;
+  const next=index+1<privacyHeadings.length?privacyContent.lines.indexOf(privacyHeadings[index+1]):privacyClosing;
+  return {title,lines:privacyContent.lines.slice(start,next)};
+ });
  return <main onMouseMove={move}>
   <div className="scroll-progress" style={{width:`${progress}%`}}/>
   <header className="topbar"><a className="brand" href="#top"><span>GREEN ROAD</span><small>FAMILY LEGACY FILMS</small></a><nav className={menu?"nav open":"nav"}><a href="#stories">Stories</a><a href="#films">The Films</a><a href="#experience">The Experience</a><a href="#about">About</a><a href="#faq">FAQ</a></nav><a className="nav-cta" href="#inquire">Inquire <Arrow/></a><button className="menu-button" onClick={()=>setMenu(!menu)} aria-expanded={menu}>{menu?"Close":"Menu"}</button></header>
@@ -105,7 +113,7 @@ export default function Home(){
   <Editorial sectionTitle="BEYOND THE FILM" headings={["WHAT HAPPENS TO A STORY AFTER IT IS TOLD?","MORE THAN AN ARCHIVE","A FILM WITH A FUTURE","THE FAMILY KEEPS CHANGING","MADE TO BE KEPT","SOMEDAY"]}/>
   <FilmmakerSection/>
 
-  <section className="privacy"><div><h2>{section("PRIVACY").lines[0]}</h2></div><div className="editorial-copy"><Copy lines={section("PRIVACY").lines.slice(1)} headings={["PRIVATE BY DESIGN","CONTROLLED REVIEW","ARCHIVAL CARE"]}/></div></section>
+  <section className="privacy privacy-vault"><header className="privacy-intro"><h2>{privacyContent.lines[0]}</h2><Copy lines={privacyContent.lines.slice(1,privacyContent.lines.indexOf(privacyHeadings[0]))}/></header><div className="privacy-principles">{privacyGroups.map(group=><article key={group.title}><div className="privacy-mark" aria-hidden/><h3>{group.title}</h3><Copy lines={group.lines}/></article>)}</div><div className="privacy-closing"><Copy lines={privacyContent.lines.slice(privacyClosing)}/></div></section>
 
   <section id="faq" className="faq section-pad"><div className="faq-title"><h2>FAQ</h2></div><div className="faq-list">{faq.map((item,index)=><div className={open===index?"faq-item open":"faq-item"} key={item[0]}><button onClick={()=>setOpen(open===index?null:index)} aria-expanded={open===index}><span>{String(index+1).padStart(2,"0")}</span><b>{item[0]}</b><i>{open===index?"−":"+"}</i></button><div><p>{item[1]}</p></div></div>)}</div><a className="button light faq-cta" href="#inquire">Begin a private conversation <Arrow/></a></section>
 
