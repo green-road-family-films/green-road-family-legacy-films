@@ -133,6 +133,6 @@ function Editorial({sectionTitle,headings,dark=false,id}:{sectionTitle:string;he
 
 function FilmmakerSection(){
  const item=section("ABOUT / THE FILMMAKER");
- const frames=readingGroups(item.lines.slice(1),30);
+ const frames=readingGroups(item.lines.slice(1),15);
  return <section id="about" className="filmmaker-section section-pad"><div className="filmmaker-heading"><h2>{item.title}</h2><h3>{item.lines[0]}</h3></div><div className="filmmaker-reel">{frames.map((frame,index)=><article className="filmmaker-frame" key={index}><div className="film-perforations top" aria-hidden/><div className="filmmaker-frame-copy">{frame.map((text,itemIndex)=><p key={itemIndex}>{text}</p>)}</div><div className="film-perforations bottom" aria-hidden/></article>)}</div></section>
 }

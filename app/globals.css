@@ -201,12 +201,10 @@ footer{background:#050d13;border-top:1px solid var(--line);padding:70px 5vw 35px
 .filmmaker-heading{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(180px,.7fr);gap:6vw;align-items:end;padding-bottom:48px;border-bottom:1px solid var(--line)}
 .filmmaker-heading h2{max-width:900px;margin:0;font-family:var(--serif);font-size:clamp(52px,7vw,112px);font-weight:400;line-height:.88;letter-spacing:-.055em;text-transform:uppercase}
 .filmmaker-heading h3{margin:0;color:var(--gold);font-family:Neue,Arial,sans-serif;font-size:11px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;text-align:right}
-.filmmaker-reel{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding:70px 0 55px}
+.filmmaker-reel{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start;padding:70px 0 55px}
 .filmmaker-reel:before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.28}
 .filmmaker-frame{position:relative;min-width:0;padding:16px 14px;background:#061019;border:1px solid rgba(203,210,212,.2);box-shadow:0 28px 65px rgba(0,0,0,.28);transition:transform .4s,border-color .4s,box-shadow .4s}
-.filmmaker-frame:nth-child(1){transform:translateY(28px) rotate(-.6deg)}
-.filmmaker-frame:nth-child(2){transform:translateY(-10px)}
-.filmmaker-frame:nth-child(3){transform:translateY(38px) rotate(.6deg)}
+.filmmaker-frame:nth-child(n){transform:none}
 .filmmaker-frame:hover{transform:translateY(-8px) rotate(0);border-color:rgba(189,155,100,.65);box-shadow:0 34px 80px rgba(0,0,0,.36)}
 .film-perforations{height:12px;background:repeating-linear-gradient(90deg,var(--gold) 0 12px,transparent 12px 25px);opacity:.55}
 .film-perforations.top{margin-bottom:22px}
@@ -254,7 +252,7 @@ footer{background:#050d13;border-top:1px solid var(--line);padding:70px 5vw 35px
  #about .chapter-copy{columns:2}
  .filmmaker-heading{grid-template-columns:1fr}
  .filmmaker-heading h3{text-align:left}
- .filmmaker-reel{grid-template-columns:1fr}
+ .filmmaker-reel{grid-template-columns:repeat(2,minmax(0,1fr))}
  .filmmaker-frame:nth-child(n){transform:none}
  .privacy-principles{grid-template-columns:1fr}
  .privacy-principles article{min-height:0;padding:82px 34px 38px;border-radius:150px 150px 16px 16px}
@@ -271,6 +269,7 @@ footer{background:#050d13;border-top:1px solid var(--line);padding:70px 5vw 35px
  .chapter-copy,#about .chapter-copy{columns:1}
  .chapter-list summary{padding:22px 2px}
  .filmmaker-reel{padding-top:45px}
+ .filmmaker-reel{grid-template-columns:1fr}
  .filmmaker-frame-copy{padding:4px 10px}
  .privacy-vault{padding:100px 24px}
  .privacy-intro{margin-bottom:58px}
