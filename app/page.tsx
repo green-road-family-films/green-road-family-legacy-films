@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import audit from "./content.json";
 
 type AuditSection={id:string;title:string;lines:string[]};
@@ -62,12 +62,9 @@ const faq=faqQuestions.map((question,index)=>{
 });
 
 export default function Home(){
- const [menu,setMenu]=useState(false),[open,setOpen]=useState<number|null>(0),[progress,setProgress]=useState(0),[experienceScroll,setExperienceScroll]=useState(0);
- const experienceTrack=useRef<HTMLDivElement>(null);
+ const [menu,setMenu]=useState(false),[open,setOpen]=useState<number|null>(0),[progress,setProgress]=useState(0),[activeStage,setActiveStage]=useState(0),[activeFilm,setActiveFilm]=useState(0);
  useEffect(()=>{const update=()=>setProgress(window.scrollY/Math.max(1,document.documentElement.scrollHeight-window.innerHeight)*100);update();addEventListener("scroll",update,{passive:true});return()=>removeEventListener("scroll",update)},[]);
  const move=(event:React.MouseEvent<HTMLElement>)=>{event.currentTarget.style.setProperty("--x",event.clientX+"px");event.currentTarget.style.setProperty("--y",event.clientY+"px")};
- const syncExperienceScroll=()=>{const track=experienceTrack.current;if(track)setExperienceScroll(track.scrollLeft/Math.max(1,track.scrollWidth-track.clientWidth)*100)};
- const scrollExperience=(event:ChangeEvent<HTMLInputElement>)=>{const track=experienceTrack.current;if(!track)return;const value=Number(event.target.value);track.scrollLeft=value/100*(track.scrollWidth-track.clientWidth);setExperienceScroll(value)};
  const stageImages=[
   ["https://images.pexels.com/photos/10948905/pexels-photo-10948905.jpeg?auto=compress&cs=tinysrgb&w=900","Elderly hands holding a treasured family photograph"],
   ["https://images.pexels.com/photos/34384401/pexels-photo-34384401.jpeg?auto=compress&cs=tinysrgb&w=900","A hand exploring a collection of vintage family photographs"],
@@ -100,9 +97,9 @@ export default function Home(){
   <section className="not-video section-pad"><h2>{distinction.title.replace("EVENT VIDEOGRAPHY","")}<br/><span>event videography.</span></h2><h3 className="distinction-heading">{distinction.lines[0]}</h3><ReadingDeck lines={distinction.lines.slice(1)} size={8} className="dark-deck"/></section>
 
   <section className="content-section section-pad"><div className="editorial-heading"><h2>{before.title}</h2><h3>{before.lines[0]}</h3></div><div className="editorial-copy"><Copy lines={before.lines.slice(1)}/></div></section>
-  <section id="experience" className="process section-pad"><div className="process-track" ref={experienceTrack} onScroll={syncExperienceScroll}>{stages.map((stage,index)=><article className="process-step" key={stage.title}><div className="process-image"><img src={stageImages[index][0]} alt={stageImages[index][1]}/><span>{String(index+1).padStart(2,"0")}</span></div><div className="process-copy"><h3>{stage.title}</h3><div className="process-reading"><Copy lines={stage.lines}/></div></div></article>)}</div><input className="process-scrollbar" type="range" min="0" max="100" value={experienceScroll} onChange={scrollExperience} aria-label="Scroll through the five Experience stages"/></section>
+  <section id="experience" className="process section-pad"><div className="experience-tabs" role="tablist">{stages.map((stage,index)=><button key={stage.title} className={activeStage===index?"active":""} onClick={()=>setActiveStage(index)} role="tab" aria-selected={activeStage===index}><span>{String(index+1).padStart(2,"0")}</span>{stage.title}</button>)}</div><article className="experience-panel" role="tabpanel"><div className="experience-image"><img src={stageImages[activeStage][0]} alt={stageImages[activeStage][1]}/></div><div className="experience-copy"><Copy lines={stages[activeStage].lines}/></div></article></section>
 
-  <section id="films" className="films section-pad"><div className="section-head compact"><div><h2>{form.title}</h2></div></div><ReadingDeck lines={form.lines.slice(0,filmStart)} size={4} className="film-intro-deck"/><div className="film-types">{filmGroups.map(film=><article key={film.title}><h3>{film.title}</h3><h4>{film.lines[0]}</h4><div className="film-reading"><Copy lines={film.lines.slice(1)}/></div></article>)}</div><div className="film-purpose"><div className="purpose-title"><h3>{form.lines[purposeStart]}</h3><h3>{form.lines[purposeStart+1]}</h3></div><ReadingDeck lines={form.lines.slice(purposeStart+2)} size={7}/></div></section>
+  <section id="films" className="films section-pad"><div className="section-head compact"><div><h2>{form.title}</h2></div></div><ReadingDeck lines={form.lines.slice(0,filmStart)} size={4} className="film-intro-deck"/><div className="film-tabs-clean" role="tablist">{filmGroups.map((film,index)=><button key={film.title} className={activeFilm===index?"active":""} onClick={()=>setActiveFilm(index)} role="tab" aria-selected={activeFilm===index}>{film.title}</button>)}</div><article className="film-panel" role="tabpanel"><h3>{filmGroups[activeFilm].lines[0]}</h3><div className="film-panel-copy"><Copy lines={filmGroups[activeFilm].lines.slice(1)}/></div></article><div className="film-purpose"><div className="purpose-title"><h3>{form.lines[purposeStart]}</h3><h3>{form.lines[purposeStart+1]}</h3></div><ReadingDeck lines={form.lines.slice(purposeStart+2)} size={7}/></div></section>
 
   <Editorial sectionTitle="A FILM HAS A POINT OF VIEW" dark headings={["A LIFE IS NOT A TIMELINE.","THE FILMMAKER'S ROLE","NOT EVERYTHING NEEDS TO BE INCLUDED.","YOUR FAMILY'S FILM"]}/>
   <Editorial sectionTitle="BEYOND THE FILM" headings={["WHAT HAPPENS TO A STORY AFTER IT IS TOLD?","MORE THAN AN ARCHIVE","A FILM WITH A FUTURE","THE FAMILY KEEPS CHANGING","MADE TO BE KEPT","SOMEDAY"]}/>
