@@ -119,5 +119,6 @@ export default function Home(){
 
 function Editorial({sectionTitle,headings,dark=false,id}:{sectionTitle:string;headings:string[];dark?:boolean;id?:string}){
  const item=section(sectionTitle);
- return <section id={id} className={`content-section section-pad${dark?" architecture-dark":""}`}><div className="editorial-heading"><h2>{item.title}</h2></div><div className="editorial-copy"><Copy lines={item.lines} headings={headings}/></div></section>
+ const chapters=splitGroups(item.lines,headings);
+ return <section id={id} className={`chapter-section section-pad${dark?" architecture-dark":""}`}><div className="chapter-intro"><h2>{item.title}</h2></div><div className="chapter-list">{chapters.map((chapter,index)=><details key={chapter.title} open={index===0&&headings.length>1}><summary><span>{chapter.title}</span><i aria-hidden>+</i></summary><div className="chapter-copy"><Copy lines={chapter.lines}/></div></details>)}</div></section>
 }
