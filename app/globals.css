@@ -160,8 +160,21 @@ footer{background:#050d13;border-top:1px solid var(--line);padding:70px 5vw 35px
 .purpose-title{position:sticky;top:125px}
 .purpose-title h3{font-size:clamp(35px,4vw,60px);line-height:.95;margin:0}
 .purpose-title h3:last-child{color:var(--gold);font-style:italic;margin-top:10px}
-.film-purpose .reading-deck{grid-template-columns:1fr}
-.film-purpose .reading-card{padding:27px 30px;box-shadow:none}
+.film-purpose{margin-top:120px;padding-top:85px;border-top:1px solid rgba(7,18,27,.22)}
+.purpose-copy{max-width:760px;padding:38px 42px;border:1px solid rgba(7,18,27,.16);border-top:3px solid var(--gold);background:rgba(255,255,255,.38)}
+.purpose-copy p{font-family:var(--serif);font-size:clamp(15px,1.1vw,17px);line-height:1.5;color:#45575e;margin:0 0 11px}
+.purpose-copy p:first-child{font-size:clamp(20px,1.7vw,27px);line-height:1.25;margin-bottom:24px}
+.purpose-copy p:last-child{margin-bottom:0}
+
+.contact{position:relative;grid-template-columns:minmax(300px,.85fr) minmax(0,1.15fr);align-items:center;min-height:0;padding-top:105px;padding-bottom:105px;overflow:hidden}
+.contact:before{content:"";position:absolute;width:430px;height:430px;right:-110px;top:50%;transform:translateY(-50%);border:1px solid rgba(189,155,100,.18);border-radius:50%}
+.contact-title,.contact-details{position:relative;z-index:2}
+.contact-title h2{max-width:650px;margin:0;font-family:var(--serif);font-size:clamp(48px,5.5vw,90px);font-weight:400;line-height:.92;letter-spacing:-.045em}
+.contact-details{display:grid;gap:0;margin:0;border-top:1px solid var(--line)}
+.contact-details a,.contact-details span{display:block;padding:22px 0;border-bottom:1px solid var(--line)}
+.contact-details a{font-size:clamp(21px,2vw,30px);transition:color .25s,padding-left .25s}
+.contact-details a:hover{padding-left:10px;color:var(--gold)}
+.contact-details span{font-size:16px;color:#9aa8ac}
 
 .chapter-section{display:grid;grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr);gap:8vw;background:var(--mist);color:var(--ink)}
 .chapter-section.architecture-dark{background:var(--carbon);color:var(--mist)}
@@ -203,6 +216,7 @@ footer{background:#050d13;border-top:1px solid var(--line);padding:70px 5vw 35px
  .experience-image{min-height:380px}
  .film-purpose{grid-template-columns:1fr}
  .purpose-title{position:static}
+ .contact{grid-template-columns:1fr}
  .film-tabs-clean{grid-template-columns:repeat(2,1fr)}
  .film-tabs-clean button:nth-child(2){border-right:0}
  .film-tabs-clean button:nth-child(-n+2){border-bottom:1px solid #9dacaf}
@@ -219,6 +233,8 @@ footer{background:#050d13;border-top:1px solid var(--line);padding:70px 5vw 35px
  .experience-copy,.film-panel-copy{columns:1}
  .experience-panel,.film-panel{padding:20px}
  .experience-image{min-height:300px}
+ .purpose-copy{padding:28px 24px}
+ .contact{padding-top:80px;padding-bottom:80px}
  .chapter-copy,#about .chapter-copy{columns:1}
  .chapter-list summary{padding:22px 2px}
  .filmmaker-copy{columns:1;padding-top:38px}
