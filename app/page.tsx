@@ -121,7 +121,7 @@ export default function Home(){
 
   <section id="inquire" className="contact section-pad"><div className="contact-title"><h2>Begin a private conversation</h2></div><div className="contact-details"><a href="mailto:hello@greenroadfilms.com">hello@greenroadfilms.com</a><a href="tel:+14158161060">+1 415 816 1060</a><span>San Francisco Bay Area, California</span></div></section>
 
-  <footer><div className="footer-brand"><span>GREEN ROAD</span><small>FAMILY LEGACY FILMS</small></div><p>Private documentary filmmaking for the stories that deserve to continue.</p><div className="footer-links"><a href="#stories">Stories</a><a href="#films">The Films</a><a href="#experience">The Experience</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#inquire">Inquire</a></div></footer>
+  <footer><div className="footer-brand"><span>GREEN ROAD</span><small>FAMILY LEGACY FILMS</small></div><p>Private documentary filmmaking for the stories that deserve to continue.</p><div className="footer-links"><a href="#stories">Stories</a><a href="#films">The Films</a><a href="#experience">The Experience</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#inquire">Inquire</a></div><div className="footer-meta"><span><strong>GREEN ROAD LEGACY</strong><br/>A Division of Green Road Films, LLC</span></div></footer>
  </main>
 }
 
