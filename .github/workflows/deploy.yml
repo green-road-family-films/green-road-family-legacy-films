@@ -1,0 +1,63 @@
+name: Deploy
+
+# Button-only. Never runs automatically - someone must click "Run workflow".
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Where to deploy"
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Check the export actually produced a homepage
+        run: test -f out/index.html
+
+      # The FTP account is chrooted to the cPanel home directory,
+      # so these paths are relative to /home/<cpanel-user>/.
+      - name: Pick the target folder
+        id: dir
+        run: |
+          if [ "${{ inputs.target }}" = "production" ]; then
+            echo "path=public_html/" >> "$GITHUB_OUTPUT"
+          else
+            echo "path=public_html/staging.greenroadlegacy.com/" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload to GoDaddy over FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./out/
+          server-dir: ${{ steps.dir.outputs.path }}
+
+      - name: Say where it went
+        run: |
+          if [ "${{ inputs.target }}" = "production" ]; then
+            echo "Deployed to https://greenroadlegacy.com"
+          else
+            echo "Deployed to http://staging.greenroadlegacy.com"
+          fi
