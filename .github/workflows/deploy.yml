@@ -1,7 +1,8 @@
 name: Deploy
 
-# Button-only. Never runs automatically - someone must click "Run workflow".
 on:
+  # Staging updates itself on every push. Production never does.
+  push:
   workflow_dispatch:
     inputs:
       target:
@@ -33,15 +34,19 @@ jobs:
       - name: Check the export actually produced a homepage
         run: test -f out/index.html
 
-      # The FTP account is chrooted to the cPanel home directory,
-      # so these paths are relative to /home/<cpanel-user>/.
+      # A push always means staging. Production is only ever reachable
+      # through the button, and only when it is chosen explicitly.
+      # The FTP account is chrooted to the cPanel home directory, so
+      # these paths are relative to /home/<cpanel-user>/.
       - name: Pick the target folder
         id: dir
         run: |
-          if [ "${{ inputs.target }}" = "production" ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.target }}" = "production" ]; then
             echo "path=public_html/" >> "$GITHUB_OUTPUT"
+            echo "url=https://greenroadlegacy.com" >> "$GITHUB_OUTPUT"
           else
             echo "path=public_html/staging.greenroadlegacy.com/" >> "$GITHUB_OUTPUT"
+            echo "url=http://staging.greenroadlegacy.com" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Upload to GoDaddy over FTPS
@@ -55,9 +60,4 @@ jobs:
           server-dir: ${{ steps.dir.outputs.path }}
 
       - name: Say where it went
-        run: |
-          if [ "${{ inputs.target }}" = "production" ]; then
-            echo "Deployed to https://greenroadlegacy.com"
-          else
-            echo "Deployed to http://staging.greenroadlegacy.com"
-          fi
+        run: echo "Deployed to ${{ steps.dir.outputs.url }}"
