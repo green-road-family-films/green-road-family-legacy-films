@@ -15,7 +15,7 @@ const questions=[
  ["How is the project investment determined?","Each project is individually scoped. The investment depends on factors such as filming days, locations and travel, participants, archive work, editing, and delivery. Details are discussed after the initial conversation."],
 ];
 export default function FaqPage(){return <PageShell>
- <PageIntro eyebrow="FAQ" title="Questions, answered clearly." copy="A private film is personal by nature. These answers explain the starting point; the details of your project are discussed together." image="/images/legacy/private-story.jpg" imageAlt="A quiet editorial image representing a privately held family story" />
+ <PageIntro eyebrow="FAQ" title="Questions, answered clearly." copy="A private film is personal by nature. These answers explain the starting point; the details of your project are discussed together." image="/images/legacy/faq-family-film.jpg" imageAlt="An editorial family portrait woven together with frames of memory" />
  <section className="faq-page page-pad">{questions.map(([question,answer],index)=><details key={question} open={index===0}><summary><span>{String(index+1).padStart(2,"0")}</span><h2>{question}</h2><i aria-hidden>+</i></summary><p>{answer}</p></details>)}</section>
  <ConversationCta />
 </PageShell>}
