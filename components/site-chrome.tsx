@@ -17,7 +17,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="site-header">
+    <header className={pathname === "/" ? "site-header home-header" : "site-header"}>
       <Link className="site-brand" href="/" aria-label="Green Road Family Legacy Films home">
         <span>GREEN ROAD</span>
         <small>FAMILY LEGACY FILMS</small>
@@ -60,9 +60,9 @@ export function PageShell({ children }: { children: React.ReactNode }) {
   return <><SiteHeader /><main>{children}</main><SiteFooter /></>;
 }
 
-export function PageIntro({ eyebrow, title, copy, image, imageAlt }: { eyebrow: string; title: string; copy: string; image?: string; imageAlt?: string }) {
+export function PageIntro({ eyebrow, title, copy, image, imageAlt, className = "" }: { eyebrow: string; title: string; copy: string; image?: string; imageAlt?: string; className?: string }) {
   return (
-    <section className="page-intro">
+    <section className={`page-intro${className ? ` ${className}` : ""}`}>
       <div className="page-intro-copy"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p>{copy}</p></div>
       {image && <div className="page-intro-art"><img src={image} alt={imageAlt ?? ""} /></div>}
     </section>

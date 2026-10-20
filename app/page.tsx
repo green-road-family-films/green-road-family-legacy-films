@@ -14,12 +14,11 @@ export default function Home() {
       <div className="home-hero-image"><img src="/green-road-legacy-hero.jpeg" alt="A mature couple revisiting family photographs together" /></div>
       <div className="home-hero-shade" />
       <div className="home-hero-copy">
-        <p className="eyebrow">Green Road Family Legacy Films</p>
         <h1>Your story.<br/><em>Their legacy.</em></h1>
-        <p>Private documentary films for the lives, voices, and histories a family wants to carry forward.</p>
+        <p className="home-hero-sub">Private films made from the lives, voices, places, and<br className="desktop-break"/> memories that make a family what it is.</p>
+        <p className="home-hero-declaration">Not an event.<br/>Not a recording.<br/>A film for generations.</p>
         <Link className="button light" href="/inquire">Begin a private conversation <span aria-hidden>↗</span></Link>
       </div>
-      <Link className="hero-scroll" href="#story"><span>Discover</span><i aria-hidden /></Link>
     </section>
 
     <section id="story" className="home-opening page-pad">
