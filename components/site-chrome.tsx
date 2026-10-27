@@ -49,7 +49,7 @@ export function SiteFooter() {
       <div className="footer-contact">
         <a href="mailto:hello@greenroadlegacy.com">hello@greenroadlegacy.com</a>
         <a href="tel:+14158161060">+1 415 816 1060</a>
-        <span>Sacramento</span>
+        <span>Sacramento. California. USA</span>
       </div>
       <div className="footer-base"><span>© Green Road Family Legacy Films</span><Link href="/privacy">Privacy &amp; Trust</Link></div>
     </footer>

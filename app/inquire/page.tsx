@@ -22,7 +22,7 @@ export default function InquirePage(){
     <label className="wide"><span>Anything else you would like to share?</span><textarea name="more" rows={3} /></label>
     <button className="button wide" type="submit">Send your inquiry <span aria-hidden>↗</span></button>
    </form>
-   <aside className="inquiry-aside"><p className="eyebrow">Direct contact</p><a href="mailto:hello@greenroadlegacy.com">hello@greenroadlegacy.com</a><a href="tel:+14158161060">+1 415 816 1060</a><span>Sacramento</span><p>Private. Personal. Without obligation.</p></aside>
+   <aside className="inquiry-aside"><p className="eyebrow">Direct contact</p><a href="mailto:hello@greenroadlegacy.com">hello@greenroadlegacy.com</a><a href="tel:+14158161060">+1 415 816 1060</a><span>Sacramento. California. USA</span><p>Private. Personal. Without obligation.</p></aside>
   </section>
  </PageShell>;
 }
